@@ -1,5 +1,4 @@
 """
-Repository: craftycult-product-crawler
 This script is designed to crawl and extract structured product information from URLs starting with 
 'https://craftycult.com/product/'. The data is saved in Markdown format, suitable for AI training or documentation.
 """
