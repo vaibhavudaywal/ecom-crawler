@@ -43,10 +43,13 @@ This is a sample product description.
 - Feature 3
 
 ```
+---
 
 ## In action
 
 <img width="726" alt="image" src="https://github.com/user-attachments/assets/3b7ac047-9f81-45be-9656-a47aab617f07" />
+
+---
 
 
 
