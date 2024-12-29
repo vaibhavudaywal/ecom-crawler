@@ -1,6 +1,6 @@
-# CraftyCult Product Crawler
+# Ecom Product Crawler
 
-This repository contains a Python script designed to crawl product pages from `https://craftycult.com/product/` and extract structured information in Markdown format. The extracted data is AI-friendly and ready for use in machine learning tasks or documentation.
+This repository contains a Python script designed to crawl product pages from `https://craftycult.com/product/`(Any Ecom store url where you could extract product's data) and extract structured information in Markdown format. The extracted data is AI-friendly and ready for use in machine learning tasks or documentation.
 
 ---
 
