@@ -53,5 +53,9 @@ This is a sample product description.
 - **Extracted the meaningful data from product page in markdown format**
 <img width="1168" alt="image" src="https://github.com/user-attachments/assets/f95f229f-0f5c-41ad-987e-b654bbb346e7" />
 
+- **ChatBot (backend) in action**
+<img width="829" alt="image" src="https://github.com/user-attachments/assets/444c0f7d-215e-4cc9-89ce-8bb071fb1e75" />
+
+
 ---
 
