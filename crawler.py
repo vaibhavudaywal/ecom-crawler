@@ -1,12 +1,14 @@
-"""
-This script is designed to crawl and extract structured product information from URLs starting with 
-'https://craftycult.com/product/'. The data is saved in Markdown format, suitable for AI training or documentation.
-"""
-
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 import time
+
+# Constants for configuration
+BASE_URL = "https://example.com/"  # Change this to your desired e-commerce domain
+PRODUCT_URL_PATTERN = "/product/"  # Pattern to identify product URLs
+TITLE_CLASSES = ["product-title", "et_pb_wc_title"]  # List of possible classes for product titles
+DESCRIPTION_CLASSES = ["product-description", "et_pb_wc_description"]  # List of possible classes for descriptions
+DETAILS_TAGS = {"p": {"style": "text-align: center;"}}  # Tags and attributes to locate product details
 
 # List of visited URLs to avoid duplicates
 visited_urls = set()
@@ -18,7 +20,7 @@ markdown_content = "# Extracted Product Data\n\n"
 def extract_data_from_page(url):
     """
     Extracts product title, description, and specifications from the given URL and formats it into Markdown.
-    
+
     Args:
         url (str): The URL of the product page to extract data from.
     """
@@ -29,26 +31,38 @@ def extract_data_from_page(url):
         soup = BeautifulSoup(response.text, 'html.parser')
 
         # Extracting product title
-        title = soup.find('h1', class_='product-title')
-        title_text = title.get_text(strip=True) if title else "No Title"
+        title_text = "No Title"
+        for title_class in TITLE_CLASSES:
+            title = soup.find(class_=title_class)
+            if title:
+                title_text = title.get_text(strip=True)
+                break
 
         # Extracting product description
-        description = soup.find('div', class_='product-description')
-        description_text = description.get_text(strip=True) if description else "No Description Available"
+        description_text = "No Description Available"
+        for description_class in DESCRIPTION_CLASSES:
+            description = soup.find(class_=description_class)
+            if description:
+                description_text = description.get_text(strip=True)
+                break
 
-        # Extracting product specifications or features
-        specs = soup.find('ul', class_='product-specifications')
-        specifications = (
-            "\n".join(f"- {item.get_text(strip=True)}" for item in specs.find_all('li'))
-            if specs
-            else "No Specifications Provided"
-        )
+        # Extracting product details
+        product_details = []
+        for tag, attrs in DETAILS_TAGS.items():
+            details_section = soup.find_all(tag, attrs=attrs)
+            for detail in details_section:
+                detail_text = detail.get_text(strip=True)
+                if detail_text:
+                    product_details.append(detail_text)
+        if not product_details:
+            product_details.append("No product details found.")
 
         # Appending data in Markdown format
         markdown_content += f"## {title_text}\n\n"
         markdown_content += f"**URL**: [{url}]({url})\n\n"
         markdown_content += f"**Description**:\n\n{description_text}\n\n"
-        markdown_content += f"**Specifications**:\n\n{specifications}\n\n"
+        markdown_content += f"**Product Details**:\n\n"
+        markdown_content += "\n".join(product_details) + "\n\n"
         markdown_content += "---\n\n"
 
     except requests.exceptions.RequestException as e:
@@ -58,7 +72,7 @@ def extract_data_from_page(url):
 def crawl_website(base_url):
     """
     Crawls the website and extracts data from product pages.
-    
+
     Args:
         base_url (str): The starting URL for crawling.
     """
@@ -83,7 +97,7 @@ def crawl_website(base_url):
 
                     # Add only URLs matching the product pattern
                     if (urlparse(full_url).netloc == urlparse(base_url).netloc and
-                        full_url.startswith("https://craftycult.com/product/") and
+                        PRODUCT_URL_PATTERN in full_url and
                         full_url not in visited_urls):
                         to_visit.append(full_url)
             except requests.exceptions.RequestException as e:
@@ -97,8 +111,7 @@ def main():
     """
     Entry point of the script. Initiates crawling and saves the output as a Markdown file.
     """
-    base_url = "https://craftycult.com/product/"  # Starting URL pattern
-    crawl_website(base_url)
+    crawl_website(BASE_URL)
 
     # Save Markdown content to a file
     with open("product_data.md", "w", encoding="utf-8") as f:
