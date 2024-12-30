@@ -47,10 +47,11 @@ This is a sample product description.
 
 ## In action
 
+- **Crawling the ecom store product pages**
 <img width="726" alt="image" src="https://github.com/user-attachments/assets/3b7ac047-9f81-45be-9656-a47aab617f07" />
 
+- **Extracted the meaningful data from product page in markdown format**
+<img width="1168" alt="image" src="https://github.com/user-attachments/assets/f95f229f-0f5c-41ad-987e-b654bbb346e7" />
+
 ---
 
-
-
----
