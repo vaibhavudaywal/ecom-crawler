@@ -56,6 +56,8 @@ This is a sample product description.
 - **ChatBot (backend) in action**
 <img width="829" alt="image" src="https://github.com/user-attachments/assets/444c0f7d-215e-4cc9-89ce-8bb071fb1e75" />
 
+- **Integrated on store**
+<img width="1098" alt="image" src="https://github.com/user-attachments/assets/fb63b627-5d7f-45cd-b78a-9c36f5f54988" />
 
 ---
 
